@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31829.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputValidationLibDN5", "InputValidationLibDN5\InputValidationLibDN5.csproj", "{3141B52F-1AFB-4647-B8E9-4887A11D11C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InputValidationLibDN5", "InputValidationLibDN5\InputValidationLibDN5.csproj", "{3141B52F-1AFB-4647-B8E9-4887A11D11C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InputValidationTests", "InputValidationTests\InputValidationTests.csproj", "{58E17C36-8B67-41C9-9478-BEA3E2C50B41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3141B52F-1AFB-4647-B8E9-4887A11D11C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3141B52F-1AFB-4647-B8E9-4887A11D11C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3141B52F-1AFB-4647-B8E9-4887A11D11C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E17C36-8B67-41C9-9478-BEA3E2C50B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E17C36-8B67-41C9-9478-BEA3E2C50B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E17C36-8B67-41C9-9478-BEA3E2C50B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E17C36-8B67-41C9-9478-BEA3E2C50B41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
