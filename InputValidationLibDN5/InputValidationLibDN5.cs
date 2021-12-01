@@ -3,28 +3,27 @@ using System.Text.RegularExpressions;
 using System.Linq;
 namespace InputValidationLibDN5
 {
-    public class IVL5
+    public class InputValidation
     {
         /// <summary>
-        /// Validates if an inputed string is alphabetic
+        /// Validates if the inputed string qualifies as alphabetic
         /// </summary>
-        /// <param name="inputString"></param>
-        /// <param name="restrictions"></param>
-        /// <returns>bool of true = contains only alphabetic, false = contains non-alphabetic</returns>
+        /// <param name="inputString">inputString is the inputed string to be tested</param>
+        /// <returns>bool of true or false of if the string is alphabetic</returns>
         public static bool stringisAlpha(string inputString)
         {
 
-            Regex alphanum = new Regex("^[A-Za-z]*$");
+            Regex regexAlpha = new Regex("^[A-Za-z]*$");
 
-            bool isAlpha = alphanum.IsMatch(inputString);
+            bool isAlpha = regexAlpha.IsMatch(inputString);
             return isAlpha;
         }
 
         /// <summary>
-        /// Validates if an inputed string is alphanumeric
+        /// Validates if the inputed string qualifies as alphanumeric
         /// </summary>
-        /// <param name="inputString"></param>
-        /// <returns>bool of true = contains only alphanumeric, false = contains non-alphanumeric</returns>
+        /// <param name="inputString">inputString is the inputed string to be tested</param>
+        /// <returns>bool of true or false if the string is alphanumeric</returns>
         public static bool stringisAlphaNum(string inputString)
         {
             Regex regexAlphaNum = new Regex("^[A-Za-z0-9]*$");
@@ -33,10 +32,10 @@ namespace InputValidationLibDN5
         }
 
         /// <summary>
-        /// Validates if an inputed string is a digit
+        /// Validates if the inputed string qualifies as a number
         /// </summary>
-        /// <param name="inputString"></param>
-        /// <returns>bool of true = contains only digits, false = contains non-digits</returns>
+        /// <param name="inputString">inputString is the inputed string to be tested</param>
+        /// <returns>bool of true or false if the string is a number</returns>
         public static bool stringisDigit(string inputString)
         {
             Regex regexDigits = new Regex("^[0-9]*$");
@@ -45,10 +44,10 @@ namespace InputValidationLibDN5
         }
 
         /// <summary>
-        /// Validates if an inputed string is a decimal (digit + .)
+        /// Validates if the inputed string qualifies as a decimal
         /// </summary>
-        /// <param name="inputString"></param>
-        /// <returns>bool of true = contains only digits and '.', false = contains non-decimal</returns>
+        /// <param name="inputString">the inputed string to be tested</param>
+        /// <returns>bool of true or false if the string is a decimal</returns>
         public static bool stringisDecimal(string inputString)
         {
             Regex regexDecimals = new Regex("^[+-]?([0-9]+.?[0-9]*|.[0-9]+)$");
@@ -57,40 +56,78 @@ namespace InputValidationLibDN5
         }
 
         /// <summary>
-        /// Validates if an inputed string is a 'y' or 'n' for conformation inputs
+        /// Validates if the inputed string is y or n or invalid to confirm inputs
         /// </summary>
-        /// <param name="inputString"></param>
-        /// <returns>bool of true = contains only 'y','Y','n',and 'N', false = contains anything else</returns>
-        public static bool stringisYN(string inputString)
+        /// <remarks>
+        /// Allowed y inputs are:
+        ///     y, Y, yes, Yes, YES,
+        ///     which resolve to 1
+        /// 
+        /// Allowed n inputs are:
+        ///     n, N, no, No, NO,
+        ///     which resolve to 0
+        /// 
+        /// Invalid inputs resolve to -1
+        /// </remarks>
+        /// <param name="inputString">the inputed string to be tested</param>
+        /// <returns>int of 1 for true, 0 for false, -1 for invalid</returns>
+        public static int stringisYN(string inputString)
         {
-            bool isYN;
-            if ((new[] { "y", "Y", "n", "N" }).Contains(inputString))
+            Regex regexYes = new Regex("^([y]|[Y]|(yes)|(Yes)|(YES))$");
+            Regex regexNo = new Regex("^([n]|[N]|(no)|(No)|(NO))$");
+
+            int isYN;
+            if (regexYes.IsMatch(inputString))
             {
-                isYN = true;
+                isYN = 1;
+            }
+            else if (regexNo.IsMatch(inputString))
+            {
+                isYN = 0;
             }
             else
             {
-                isYN = false;
+                isYN = -1;
             }
+
             return isYN;
         }
 
         /// <summary>
-        /// Validates if an inputed string is a 't' or 'f' for conformation inputs
+        /// Validates if the inputed string is t or f or invalid to confirm inputs
         /// </summary>
-        /// <param name="inputString"></param>
-        /// <returns>bool of true = contains only 't','T','f',and 'F', false = contains anything else</returns>
-        public static bool stringisTF(string inputString)
+        /// <remarks>
+        /// Allowed t inputs are:
+        ///     t, T, true, True, TRUE,
+        ///     which resolve to 1
+        /// 
+        /// Allowed n inputs are:
+        ///     f, F, false, False, FALSE,
+        ///     which resolve to 0
+        /// 
+        /// Invalid inputs resolve to -1
+        /// </remarks>
+        /// <param name="inputString">the inputed string to be tested</param>
+        /// <returns>int of 1 for true, 0 for false, -1 for invalid</returns>
+        public static int stringisTF(string inputString)
         {
-            bool isTF;
-            if ((new[] { "t", "T", "f", "F" }).Contains(inputString))
+            Regex regexTrue = new Regex("^([t]|[T]|(true)|(True)|(TRUE))$");
+            Regex regexFalse = new Regex("^([f]|[F]|(false)|(False)|(FALSE))$");
+
+            int isTF;
+            if (regexTrue.IsMatch(inputString))
             {
-                isTF = true;
+                isTF = 1;
+            }
+            else if (regexFalse.IsMatch(inputString))
+            {
+                isTF = 0;
             }
             else
             {
-                isTF = false;
+                isTF = -1;
             }
+
             return isTF;
         }
     }

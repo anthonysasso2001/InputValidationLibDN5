@@ -1,188 +1,409 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using InputValidationLibDN5;
 
+
 namespace InputValidationTests
 {
+
     [TestClass]
-    public class isAlphabeticTests
+    public class F000_IsAlphaTests
     {
-        [TestMethod]
-        public void T001_check_abc_isValid()
-        {
-            bool isValid = IVL5.stringisAlpha("abc");
 
-            Assert.IsTrue(isValid);
+        [TestMethod]
+        public void F000_T000_abc_isAlpha_returnTrue()
+        {
+            //arrange
+            string testString = "abc";
+
+            //act
+            bool receivedBool = InputValidation.stringisAlpha(testString);
+
+            //assert
+            Assert.IsTrue(receivedBool);   //is the string without capitals alphabetic
         }
 
         [TestMethod]
-        public void T002_check_abc123_isInValid()
+        public void F000_T001_ABC_isAlpha_returnTrue()
         {
-            bool isValid = IVL5.stringisAlpha("abc123");
+            //arrange
+            string testString = "ABC";
 
-            Assert.IsFalse(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisAlpha(testString);
+
+            //assert
+            Assert.IsTrue(receivedBool);   //is a string with capitals alphabetic
         }
 
         [TestMethod]
-        public void T003_check_dot123_isInValid()
+        public void F000_T002_Abc123_isAlpha_returnFalse()
         {
-            bool isValid = IVL5.stringisAlpha(".123");
+            //arrange
+            string testString = "Abc123";
 
-            Assert.IsFalse(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisAlpha(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);  //is a string with numbers alphabetic
+        }
+
+        [TestMethod]
+        public void F000_T003_Abc123WSymbols_isAlpha_returnFalse()
+        {
+            //arrange
+            string testString = "Abc123!@#";
+
+            //act
+            bool receivedBool = InputValidation.stringisAlpha(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);  //is a string with symbols alphabetic
         }
     }
 
     [TestClass]
-    public class isAlphanumericTests
+    public class F001_IsAlphaNumTests
     {
-        [TestMethod]
-        public void T101_check_abc123_isValid()
-        {
-            bool isValid = IVL5.stringisAlphaNum("abc123");
 
-            Assert.IsTrue(isValid);
+        [TestMethod]
+        public void F001_T000_wordStringNoCaps_isAlphaNum_returnTrue()
+        {
+            //arrange
+            string testString = "lowercasestring";
+
+            //act
+            bool receivedBool = InputValidation.stringisAlphaNum(testString);
+
+            //assert
+            Assert.IsTrue(receivedBool); //is a string without capitals alphanumeric
         }
 
         [TestMethod]
-        public void T102_check_abcpound123_isInValid()
+        public void F001_T001_wordStringWithCaps_isAlphaNum_returnTrue()
         {
-            bool isValid = IVL5.stringisAlphaNum("abc#123");
+            //arrange
+            string testString = "UpperCaseString";
 
-            Assert.IsFalse(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisAlphaNum(testString);
+
+            //assert
+            Assert.IsTrue(receivedBool); //is a string with capitals alphanumeric
+        }
+
+        [TestMethod]
+        public void F001_T002_wordStringWithNum_isAlphaNum_returnTrue()
+        {
+            //arrange
+            string testString = "stringWith1234";
+
+            //act
+            bool receivedBool = InputValidation.stringisAlphaNum(testString);
+
+            //assert
+            Assert.IsTrue(receivedBool); //is a string with numbers alphanumeric
+        }
+
+        [TestMethod]
+        public void F001_T003_wordStringWithSymbols_isAlpha_returnFalse()
+        {
+            //arrange
+            string testString = "stringWith!@#$";
+
+            //act
+            bool receivedBool = InputValidation.stringisAlphaNum(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);    //is a string with symbols alphanumeric
         }
     }
 
     [TestClass]
-    public class isDigitTests
+    public class F002_IsDigitTests
     {
         [TestMethod]
-        public void T201_check_123_isValid()
+        public void F002_T000_wordString_isDigit_returnFalse()
         {
-            bool isValid = IVL5.stringisDigit("123");
+            //arrange
+            string testString = "stringOfWords";
 
-            Assert.IsTrue(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisDigit(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);    //is a string with letters a digit
         }
 
         [TestMethod]
-        public void T202_check_dot123_isInValid()
+        public void F002_T002_numString_isDigit_returnTrue()
         {
-            bool isValid = IVL5.stringisDigit(".123");
+            //arrange
+            string testString = "1234";
 
-            Assert.IsFalse(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisDigit(testString);
+
+            //assert
+            Assert.IsTrue(receivedBool); //is a string with numbers a digit
         }
 
         [TestMethod]
-        public void T203_check_abc123_isInValid()
+        public void F002_T003_numStringWithSymbols_isDigit_returnFalse()
         {
-            bool isValid = IVL5.stringisDigit("abc123");
+            //arrange
+            string testString = "1234!@#$";
 
-            Assert.IsFalse(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisDigit(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);    //is a string with symbols a digit
+        }
+
+        [TestMethod]
+        public void F002_T004_numStringWithDot_isDigit_returnFalse()
+        {
+            //arrange
+            string testString = "1234.5678";
+
+            //act
+            bool receivedBool = InputValidation.stringisDigit(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);    //is a string with numbers and a dot a digit
         }
     }
 
     [TestClass]
-    public class isDecimalTests
+    public class F003_IsDecimalTests
     {
         [TestMethod]
-        public void T301_check_123_isValid()
+        public void F003_T000_wordString_isDecimal_returnFalse()
         {
-            bool isValid = IVL5.stringisDecimal("123");
+            //arrange
+            string testString = "stringOfWords";
 
-            Assert.IsTrue(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisDecimal(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);    //is a string with words a decimal
         }
 
         [TestMethod]
-        public void T302_check_dot123_isValid()
+        public void F003_T001_numString_isDecimal_returnTrue()
         {
-            bool isValid = IVL5.stringisDecimal(".123");
+            //arrange
+            string testString = "1234";
 
-            Assert.IsTrue(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisDecimal(testString);
+
+            //assert
+            Assert.IsTrue(receivedBool); //is a string with numbers a decimal
         }
 
         [TestMethod]
-        public void T303_check_123dot456_isValid()
+        public void F003_T002_numStringWithSymbols_isDecimal_returnFalse()
         {
-            bool isValid = IVL5.stringisDecimal("123.456");
+            //arrange
+            string testString = "1234!@#$";
 
-            Assert.IsTrue(isValid);
+            //act
+            bool receivedBool = InputValidation.stringisDecimal(testString);
+
+            //assert
+            Assert.IsFalse(receivedBool);    //is a string with symbols a decimal
         }
 
         [TestMethod]
-        public void T304_check_abc_isInValid()
+        public void F003_T003_numStringWithDot_isDecimal_returnTrue()
         {
-            bool isValid = IVL5.stringisDecimal("abc");
+            //arrange
+            string testString = "1234!@#$";
 
-            Assert.IsFalse(isValid);
-        }
+            //act
+            bool receivedBool = InputValidation.stringisDecimal(testString);
 
-        [TestMethod]
-        public void T305_check_123dtabc_isInValid()
-        {
-            bool isValid = IVL5.stringisDecimal("123.abc");
-
-            Assert.IsFalse(isValid);
+            //assert
+            Assert.IsFalse(receivedBool);    //is a string with numbers and a dot a decimal
         }
     }
 
     [TestClass]
-    public class isYNTests
+    public class F004_IsYNTests
     {
         [TestMethod]
-        public void T401_check_y_isValid()
+        public void F004_T000_wordString_isYN_returnNeg1()
         {
-            bool isValid = IVL5.stringisYN("y");
+            //arrange
+            string testString = "stringOfWords";
+            int expectedInt = -1;
 
-            Assert.IsTrue(isValid);
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string with words Y/N
         }
 
         [TestMethod]
-        public void T402_check_Y_isValid()
+        public void F004_T001_numString_isYN_returnNeg1()
         {
-            bool isValid = IVL5.stringisYN("Y");
+            //arrange
+            string testString = "1234";
+            int expectedInt = -1;
 
-            Assert.IsTrue(isValid);
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string with numbers Y/N
         }
 
         [TestMethod]
-        public void T403_check_n_isValid()
+        public void F004_T002_stringOfy_isYN_return1()
         {
-            bool isValid = IVL5.stringisYN("n");
+            //arrange
+            string testString = "y";
+            int expectedInt = 1;
 
-            Assert.IsTrue(isValid);
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of y Y/N
         }
 
         [TestMethod]
-        public void T404_check_N_isValid()
+        public void F004_T003_stringOfY_isYN_return1()
         {
-            bool isValid = IVL5.stringisYN("N");
+            //arrange
+            string testString = "Y";
+            int expectedInt = 1;
 
-            Assert.IsTrue(isValid);
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of Y Y/N
         }
 
         [TestMethod]
-        public void T405_check_abc_isInValid()
+        public void F004_T004_stringOfyes_isYN_return1()
         {
-            bool isValid = IVL5.stringisYN("abc");
+            //arrange
+            string testString = "yes";
+            int expectedInt = 1;
 
-            Assert.IsFalse(isValid);
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of yes Y/N
         }
 
         [TestMethod]
-        public void T406_check_123_isInValid()
+        public void F004_T005_stringOfYes_isYN_return1()
         {
-            bool isValid = IVL5.stringisYN("123");
+            //arrange
+            string testString = "Yes";
+            int expectedInt = 1;
 
-            Assert.IsFalse(isValid);
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of Yes Y/N
         }
 
         [TestMethod]
-        public void T407_check_abcdot123_isValid()
+        public void F004_T006_stringOfYES_isYN_return1()
         {
-            bool isValid = IVL5.stringisYN("abc.123");
+            //arrange
+            string testString = "YES";
+            int expectedInt = 1;
 
-            Assert.IsFalse(isValid);
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of YES Y/N
+        }
+
+        [TestMethod]
+        public void F004_T007_stringOfn_isYN_return0()
+        {
+            //arrange
+            string testString = "n";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of n Y/N
+        }
+
+        [TestMethod]
+        public void F004_T008_stringOfN_isYN_return0()
+        {
+            //arrange
+            string testString = "N";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of N Y/N
+        }
+
+        [TestMethod]
+        public void F004_T009_stringOfno_isYN_return0()
+        {
+            //arrange
+            string testString = "no";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of no Y/N
+        }
+
+        [TestMethod]
+        public void F004_T010_stringOfNo_isYN_return0()
+        {
+            //arrange
+            string testString = "No";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of No Y/N
+        }
+
+        [TestMethod]
+        public void F004_T011_stringOfNO_isYN_return0()
+        {
+            //arrange
+            string testString = "NO";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisYN(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of NO Y/N
         }
     }
 
+    /*
     [TestClass]
     public class isTFTests
     {
@@ -240,6 +461,179 @@ namespace InputValidationTests
             bool isValid = IVL5.stringisTF("abc.123");
 
             Assert.IsFalse(isValid);
+        }
+    }
+    */
+
+    [TestClass]
+    public class F005_IsTFTests
+    {
+        [TestMethod]
+        public void F005_T000_wordString_isTF_returnNeg1()
+        {
+            //arrange
+            string testString = "stringOfWords";
+            int expectedInt = -1;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string with words T/F
+        }
+
+        [TestMethod]
+        public void F005_T001_numString_isTF_returnNeg1()
+        {
+            //arrange
+            string testString = "1234";
+            int expectedInt = -1;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string with numbers T/F
+        }
+
+        [TestMethod]
+        public void F005_T002_stringOft_isTF_return1()
+        {
+            //arrange
+            string testString = "t";
+            int expectedInt = 1;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of t T/F
+        }
+
+        [TestMethod]
+        public void F005_T003_stringOfT_isTF_return1()
+        {
+            //arrange
+            string testString = "T";
+            int expectedInt = 1;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of T T/F
+        }
+
+        [TestMethod]
+        public void F005_T004_stringOftrue_isTF_return1()
+        {
+            //arrange
+            string testString = "true";
+            int expectedInt = 1;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of true T/F
+        }
+
+        [TestMethod]
+        public void F005_T005_stringOfTrue_isTF_return1()
+        {
+            //arrange
+            string testString = "True";
+            int expectedInt = 1;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of True T/F
+        }
+
+        [TestMethod]
+        public void F005_T006_stringOfTRUE_isTF_return1()
+        {
+            //arrange
+            string testString = "TRUE";
+            int expectedInt = 1;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of TRUE T/F
+        }
+
+        [TestMethod]
+        public void F005_T007_stringOff_isTF_return0()
+        {
+            //arrange
+            string testString = "f";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of f T/F
+        }
+
+        [TestMethod]
+        public void F005_T008_stringOfF_isTF_return0()
+        {
+            //arrange
+            string testString = "F";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of F T/F
+        }
+
+        [TestMethod]
+        public void F005_T009_stringOffalse_isTF_return0()
+        {
+            //arrange
+            string testString = "false";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of false T/F
+        }
+
+        [TestMethod]
+        public void F005_T010_stringOfFalse_isTF_return0()
+        {
+            //arrange
+            string testString = "False";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of False Y/N
+        }
+
+        [TestMethod]
+        public void F005_T011_stringOfFALSE_isTF_return0()
+        {
+            //arrange
+            string testString = "FALSE";
+            int expectedInt = 0;
+
+            //act
+            int receivedInt = InputValidation.stringisTF(testString);
+
+            //assert
+            Assert.AreEqual(expectedInt, receivedInt); //is a string of FALSE T/F
         }
     }
 }
